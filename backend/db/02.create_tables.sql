@@ -1,6 +1,5 @@
-USE banglalearning;
+USE fahmed$banglalearning;;
 
---add a word example for english equiv pronounciation?
 CREATE TABLE Consonants(
   consonant_id INT PRIMARY KEY NOT NULL UNIQUE,
   consonant VARCHAR(2) NOT NULL,

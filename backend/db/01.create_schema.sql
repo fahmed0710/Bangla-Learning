@@ -1,1 +1,1 @@
-CREATE SCHEMA IF NOT EXISTS banglalearning;
+CREATE SCHEMA IF NOT EXISTS fahmed$banglalearning;

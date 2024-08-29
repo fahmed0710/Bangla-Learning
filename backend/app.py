@@ -1,9 +1,10 @@
-from Flask import Flask, jsonify, send_from_directory
-from flask_cors import flask_cors
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 import mysql.connector
+import os
 
 app = Flask(__name__)
-CORS(app, origins=['http://fahmed.pythonanywhere/com', 'http://localhost:3000'])
+CORS(app, origins=['http://fahmed.pythonanywhere.com', 'http://localhost:3000'])
 
 config = {
   'user': 'fahmed',
@@ -13,10 +14,34 @@ config = {
   'database': 'fahmed$banglalearning'
 }
 
+def execute_query(query, params=None, fetch=True, fetchone=False, fetchall=False):
+  try:
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+
+    cursor.execute(query, params)
+
+    if fetch:
+      if fetchone:
+        result = cursor.fetchone()
+      else:
+        result = cursor.fetchall()
+    else:
+      connection.commit()
+      result = None
+
+    cursor.close()
+    connection.close()
+
+    return result
+  except Exception as e:
+    return str(e)
+
+
 @app.route('/')
 def home():
   return jsonify({
-    'message': 'hi hiii :)'
+    'message': 'Hi hi hiii'
   })
 
 if __name__ == "__main__":
